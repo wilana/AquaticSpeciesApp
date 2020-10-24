@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.TableViewController">
+   <children>
+      <TableView fx:id="speciesTableView" layoutX="96.0" layoutY="68.0" prefHeight="265.0" prefWidth="408.0">
+        <columns>
+          <TableColumn fx:id="speciesIDColumn" prefWidth="75.0" text="ID" />
+          <TableColumn fx:id="scientificNameColumn" prefWidth="75.0" text="Scientific Name" />
+            <TableColumn fx:id="commonNameColumn" prefWidth="75.0" text="Common Name" />
+            <TableColumn fx:id="familyColumn" prefWidth="75.0" text="Family" />
+            <TableColumn fx:id="regionOriginColumn" prefWidth="75.0" text="Region of Origin" />
+            <TableColumn fx:id="lifeCycleColumn" prefWidth="75.0" text="Life Cycle" />
+        </columns>
+      </TableView>
+   </children>
+</AnchorPane>

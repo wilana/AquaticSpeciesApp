@@ -12,20 +12,23 @@ import java.io.IOException;
 public class SceneChangeUtility {
 
     /**
-     * Changes to the scene specified
+     * Changes to the view with viewName upon the event occurring
      * @param event
      * @param viewName
      * @param title
      * @throws IOException
      */
     public static void changeScene(ActionEvent event, String viewName, String title) throws IOException {
+
+        // Load file with scene
         FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(new Object() {
-        }.getClass().getResource(viewName));
+        loader.setLocation(new Object(){}.getClass().getResource(viewName));
         Parent root = loader.load();
         Scene scene = new Scene(root);
 //        scene.getStylesheets().add("styles.css");
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+
+        // change scenes
         stage.setScene(scene);
         stage.setTitle(title);
         stage.show();

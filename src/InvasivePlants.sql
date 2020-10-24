@@ -1,12 +1,15 @@
+CREATE DATABASE plantSpecies;
+USE plantSpecies;
+
 CREATE TABLE IF NOT EXISTS invasiveplants (
-    `id` INT not null auto_increment,
-    `Scientific_name` VARCHAR(50) CHARACTER SET utf8,
-    `Common_name` VARCHAR(48) CHARACTER SET utf8,
+    speciesID INT not null,
+    scientificName VARCHAR(50) CHARACTER SET utf8,
+    commonName VARCHAR(48) CHARACTER SET utf8,
     `Taxonomic_group` VARCHAR(5) CHARACTER SET utf8,
     `ITIS_TSN` VARCHAR(7) CHARACTER SET utf8,
-    `Family` VARCHAR(16) CHARACTER SET utf8,
+    family VARCHAR(16) CHARACTER SET utf8,
     `Organism_category` VARCHAR(26) CHARACTER SET utf8,
-    `Origin` VARCHAR(59) CHARACTER SET utf8,
+    regionOrigin VARCHAR(59) CHARACTER SET utf8,
     `Origin_detail` VARCHAR(64) CHARACTER SET utf8,
     `Basis_for_listing` VARCHAR(51) CHARACTER SET utf8,
     `GLR_Regulated_locations` VARCHAR(37) CHARACTER SET utf8,
@@ -24,7 +27,7 @@ CREATE TABLE IF NOT EXISTS invasiveplants (
     `Reproduction` VARCHAR(15) CHARACTER SET utf8,
     `Reproduction_strategy` VARCHAR(72) CHARACTER SET utf8,
     `Growth_habit` VARCHAR(45) CHARACTER SET utf8,
-    `Life_cycle` VARCHAR(38) CHARACTER SET utf8,
+    lifeCycle VARCHAR(38) CHARACTER SET utf8,
     `Environmental_impact` VARCHAR(19) CHARACTER SET utf8,
     `Socioeconomic_impact` VARCHAR(19) CHARACTER SET utf8,
     `Beneficial_effect` VARCHAR(19) CHARACTER SET utf8,
