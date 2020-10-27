@@ -3,7 +3,6 @@ import Models.Species;
 
 import java.sql.*;
 import java.util.ArrayList;
-import java.util.Arrays;
 
 public class DBUtility {
     // Info for a local mysql user created for this project
@@ -17,8 +16,7 @@ public class DBUtility {
 
     /**
      * Get all info from database
-     * @return
-     * @throws SQLException
+     * @return content from db
      */
     public static ArrayList<Species> getAllSpeciesFromDB() throws SQLException {
 
@@ -34,9 +32,9 @@ public class DBUtility {
             conn = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/plantSpecies?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC",
                     user, password);
 
+            // Prepare sql statement to prevent injection
             String sql = "SELECT * FROM invasivePlants";
             statement = conn.prepareStatement(sql);
-            // Set up the statement and save the results
             resultSet = statement.executeQuery("SELECT * from invasivePlants");
 
 
@@ -52,7 +50,7 @@ public class DBUtility {
                         resultSet.getString("lifeCycle")
                 );
                 plants.add(newSpecies);
-                System.out.println(newSpecies.getCommonName());
+
             }
 
 
