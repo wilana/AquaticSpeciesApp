@@ -1,7 +1,7 @@
 CREATE DATABASE plantSpecies;
 USE plantSpecies;
 
-CREATE TABLE IF NOT EXISTS invasiveplants (
+CREATE TABLE IF NOT EXISTS invasivePlants (
     speciesID INT not null,
     scientificName VARCHAR(50) CHARACTER SET utf8,
     commonName VARCHAR(48) CHARACTER SET utf8,

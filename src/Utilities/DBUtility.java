@@ -3,6 +3,7 @@ import Models.Species;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class DBUtility {
     // Info for a local mysql user created for this project
@@ -20,22 +21,24 @@ public class DBUtility {
      * @throws SQLException
      */
     public static ArrayList<Species> getAllSpeciesFromDB() throws SQLException {
+
         ArrayList<Species> plants = new ArrayList<>();
 
         // Define the connection and statement
         Connection conn = null;
-        Statement statement = null;
+        PreparedStatement statement = null;
         ResultSet resultSet = null;
 
         try{
-            // Connect to the local database called plantSpecies
-            // having issues with timezones??
-            conn = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/db?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC/plantSpecies",
+            // Connect to the local database called plantSpecies (with timezone correction)
+            conn = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/plantSpecies?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC",
                     user, password);
 
+            String sql = "SELECT * FROM invasivePlants";
+            statement = conn.prepareStatement(sql);
             // Set up the statement and save the results
-            statement = conn.createStatement();
-            resultSet = statement.executeQuery("SELECT * from invasiveplants");
+            resultSet = statement.executeQuery("SELECT * from invasivePlants");
+
 
             // Save each result as a species object
             while(resultSet.next())
@@ -49,7 +52,10 @@ public class DBUtility {
                         resultSet.getString("lifeCycle")
                 );
                 plants.add(newSpecies);
+                System.out.println(newSpecies.getCommonName());
             }
+
+
 
         } catch (SQLException e)
         {
@@ -61,6 +67,7 @@ public class DBUtility {
                 statement.close();
             if (resultSet != null)
                 resultSet.close();
+
             return plants;
         }
 

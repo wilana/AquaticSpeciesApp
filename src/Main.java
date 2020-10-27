@@ -22,7 +22,7 @@ public class Main extends Application {
         Parent root = FXMLLoader.load(getClass().getResource("Views/BarChartView.fxml"));
         Scene scene = new Scene(root);
         // Add title and show
-        stage.setTitle("Create Student");
+        stage.setTitle("Invasive Species Graph");
         stage.setScene(scene);
         stage.show();
     }

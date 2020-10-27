@@ -10,6 +10,7 @@ public class Species {
         setSpeciesID(speciesID);
         setScientificName(scientificName);
         setCommonName(commonName);
+        setFamily(family);
         setRegionOrigin(regionOrigin);
         setLifeCycle(lifeCycle);
     }
@@ -54,12 +55,20 @@ public class Species {
         }
     }
 
+    public String getFamily() {
+        return family;
+    }
+
+    public void setFamily(String family) {
+        this.family = family;
+    }
+
     public String getRegionOrigin() {
         return regionOrigin;
     }
 
     public void setRegionOrigin(String regionOrigin) {
-        if (regionOrigin.isBlank())
+        if (!regionOrigin.isBlank())
         {
             this.regionOrigin = regionOrigin;
         }
