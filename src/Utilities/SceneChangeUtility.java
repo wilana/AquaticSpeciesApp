@@ -13,9 +13,9 @@ public class SceneChangeUtility {
 
     /**
      * Changes to the view with viewName upon the event occurring
-     * @param event
-     * @param viewName
-     * @param title
+     * @param event click of a button
+     * @param viewName file path
+     * @param title title of the scene
      * @throws IOException
      */
     public static void changeScene(ActionEvent event, String viewName, String title) throws IOException {
@@ -25,7 +25,7 @@ public class SceneChangeUtility {
         loader.setLocation(new Object(){}.getClass().getResource(viewName));
         Parent root = loader.load();
         Scene scene = new Scene(root);
-//        scene.getStylesheets().add("styles.css");
+        scene.getStylesheets().add("styles.css");
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
 
         // change scenes

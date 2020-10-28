@@ -9,7 +9,6 @@ import javafx.fxml.Initializable;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 import javafx.fxml.FXML;
@@ -34,6 +33,9 @@ public class BarChartController implements Initializable {
         @FXML
         private NumberAxis numberAxis;
 
+        // Series for data to populate bar chart
+        XYChart.Series plantSeries;
+
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -41,16 +43,21 @@ public class BarChartController implements Initializable {
 
         // Label the bar chart
         barChart.setTitle("Invasive Species in the Great Lakes");
-        originAxis.setLabel("");
-        numberAxis.setLabel("");
+        originAxis.setLabel("Region of Origin");
+        numberAxis.setLabel("Number of Species");
 
-        XYChart.Series series = new XYChart.Series();
-        series.setName("Plants");
+        // Set up a new series
+        plantSeries = new XYChart.Series();
+        plantSeries.setName("Plants");
+
         try {
-            series.getData().addAll(DBUtility.getAllRegions());
-            barChart.getData().add(series);
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
+            // Add data from a db count query to the series
+            plantSeries.getData().addAll(DBUtility.getAllRegions());
+            // Add series to the bar chart
+            barChart.getData().add(plantSeries);
+
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
 
 
@@ -58,11 +65,11 @@ public class BarChartController implements Initializable {
 
     /**
      * Switch to table view scene
-     * @param event
-     * @throws IOException
+     * @param event click of tableViewButton
      */
     public void viewTableClicked(ActionEvent event) throws IOException
     {
+        // change scene
         SceneChangeUtility.changeScene(event, "/Views/TableView.fxml", "All Invasive Species");
     }
 }

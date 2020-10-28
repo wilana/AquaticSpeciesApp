@@ -5,18 +5,22 @@
 <?import javafx.scene.chart.NumberAxis?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
 
-
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.BarChartController">
+<AnchorPane prefHeight="800.0" prefWidth="600.0" stylesheets="@../styles.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.BarChartController">
    <children>
-      <BarChart fx:id="barChart" layoutX="108.0" layoutY="53.0" prefHeight="294.0" prefWidth="385.0" title="Invasive Species in the Great Lakes">
-        <xAxis>
-          <CategoryAxis fx:id="originAxis" label="Region of Origin" side="BOTTOM" />
-        </xAxis>
-        <yAxis>
-          <NumberAxis fx:id="numberAxis" label="Number of Invasive Species" side="LEFT" />
-        </yAxis>
-      </BarChart>
-      <Button fx:id="tableViewButton" layoutX="509.0" layoutY="347.0" mnemonicParsing="false" onAction="#viewTableClicked" text="All Data" />
+      <VBox alignment="CENTER" prefHeight="800.0" prefWidth="600.0" spacing="10.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <BarChart fx:id="barChart" prefHeight="712.0" prefWidth="537.0" title="Invasive Species in the Great Lakes">
+              <xAxis>
+                <CategoryAxis fx:id="originAxis" label="Region of Origin" side="BOTTOM" tickLabelFill="#f1f0ea" />
+              </xAxis>
+              <yAxis>
+                <NumberAxis fx:id="numberAxis" label="Number of Invasive Species" side="LEFT" tickLabelFill="#f1f0ea" upperBound="20.0" />
+              </yAxis>
+            </BarChart>
+            <Button fx:id="tableViewButton" mnemonicParsing="false" onAction="#viewTableClicked" text="All Data" />
+         </children>
+      </VBox>
    </children>
 </AnchorPane>

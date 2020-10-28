@@ -55,14 +55,19 @@ public class TableViewController implements Initializable {
         regionOriginColumn.setCellValueFactory(new PropertyValueFactory<Species, String>("regionOrigin"));
         lifeCycleColumn.setCellValueFactory(new PropertyValueFactory<Species, String>("lifeCycle"));
 
-        //speciesTableView.getItems().addAll(speciesArrayList);
         try {
+            // Populate table with columns
             speciesTableView.getItems().addAll(DBUtility.getAllSpeciesFromDB());
+
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
 
+    /**
+     * Change scene to bar chart
+     * @param event click of graph button
+     */
     public void viewGraphClicked(ActionEvent event) throws IOException
     {
         SceneChangeUtility.changeScene(event, "/Views/BarChartView.fxml", "Invasive Species Graph");

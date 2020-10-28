@@ -40,12 +40,13 @@ public class DBUtility {
             resultSet = statement.executeQuery(sql);
 
 
-            // Save each result as a species object
+            // Save each result as a XYChart.Data object
             while (resultSet.next()) {
                 XYChart.Data<String, Integer> newRegion = new XYChart.Data(
                         resultSet.getString("regionOrigin"),
                         resultSet.getInt("num")
                 );
+                // Add xychart data to the array list that will be returned
                 regions.add(newRegion);
 
             }
@@ -64,6 +65,7 @@ public class DBUtility {
             if (resultSet != null)
                 resultSet.close();
 
+            // return array list
             return regions;
         }
     }
@@ -73,7 +75,7 @@ public class DBUtility {
 
     /**
      * Get all entries of species from database
-     * @return content from db
+     * @return All entries in db
      */
     public static ArrayList<Species> getAllSpeciesFromDB() throws SQLException {
 
@@ -105,6 +107,7 @@ public class DBUtility {
                         resultSet.getString("regionOrigin"),
                         resultSet.getString("lifeCycle")
                 );
+                // add species to array list to return
                 plants.add(newSpecies);
 
             }
@@ -125,6 +128,7 @@ public class DBUtility {
             if (resultSet != null)
                 resultSet.close();
 
+            // return all species
             return plants;
         }
 
