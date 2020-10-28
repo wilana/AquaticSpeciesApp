@@ -1,21 +1,78 @@
 package Utilities;
 import Models.Species;
+import javafx.scene.chart.XYChart;
 
 import java.sql.*;
 import java.util.ArrayList;
 
 public class DBUtility {
+
     // Info for a local mysql user created for this project
-    private static String user = "plantEnthusiast";
-    private static String password = "plants";
-
-    // Get all regions of origin
-
-    // Get numbers from each origin
+//    private static String user = "student";
+//    private static String password = "student";
+//    private static String url = "\"jdbc:mysql://127.0.0.1:3306/plantSpecies?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
+//
+    // Info for LAMP
+    private static String user = "Wilana1120464";
+    private static String password = "ltYCIfuzfm";
+    private static String url = "jdbc:mysql://172.31.22.43:3306/Wilana1120464?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
 
 
     /**
-     * Get all info from database
+     * Queries database for all unique values for region of origin
+     * @return List of regions
+     */
+    public static ArrayList<XYChart.Data> getAllRegions() throws SQLException {
+        ArrayList<XYChart.Data> regions = new ArrayList<>();
+
+        // Define the connection and statement
+        Connection conn = null;
+        PreparedStatement statement = null;
+        ResultSet resultSet = null;
+
+        try {
+            // Connect to the local database called plantSpecies (with timezone correction)
+            conn = DriverManager.getConnection(url, user, password);
+
+            // Prepare sql statement to prevent injection
+            String sql = "SELECT regionOrigin, COUNT(*) AS num from invasivePlants GROUP BY regionOrigin";
+            statement = conn.prepareStatement(sql);
+            resultSet = statement.executeQuery(sql);
+
+
+            // Save each result as a species object
+            while (resultSet.next()) {
+                XYChart.Data<String, Integer> newRegion = new XYChart.Data(
+                        resultSet.getString("regionOrigin"),
+                        resultSet.getInt("num")
+                );
+                regions.add(newRegion);
+
+            }
+
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            // Close connection
+            if (conn != null)
+                conn.close();
+
+            if (statement != null)
+                statement.close();
+
+            if (resultSet != null)
+                resultSet.close();
+
+            return regions;
+        }
+    }
+
+
+
+
+    /**
+     * Get all entries of species from database
      * @return content from db
      */
     public static ArrayList<Species> getAllSpeciesFromDB() throws SQLException {
@@ -29,13 +86,12 @@ public class DBUtility {
 
         try{
             // Connect to the local database called plantSpecies (with timezone correction)
-            conn = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/plantSpecies?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC",
-                    user, password);
+            conn = DriverManager.getConnection(url, user, password);
 
             // Prepare sql statement to prevent injection
             String sql = "SELECT * FROM invasivePlants";
             statement = conn.prepareStatement(sql);
-            resultSet = statement.executeQuery("SELECT * from invasivePlants");
+            resultSet = statement.executeQuery(sql);
 
 
             // Save each result as a species object
@@ -59,10 +115,13 @@ public class DBUtility {
         {
             e.printStackTrace();
         } finally {
+            // Close connection
             if (conn != null)
                 conn.close();
+
             if (statement != null)
                 statement.close();
+
             if (resultSet != null)
                 resultSet.close();
 

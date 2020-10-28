@@ -2,6 +2,8 @@ package Controllers;
 
 import Models.Species;
 import Utilities.DBUtility;
+import Utilities.SceneChangeUtility;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -9,6 +11,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 
+import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -40,13 +43,11 @@ public class TableViewController implements Initializable {
     @FXML
     private Button graphButton;
 
-    ArrayList<Species> speciesArrayList = new ArrayList<>();
-
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        speciesArrayList.add(new Species(1, "arundo", "reed", "poso","eurasia", "perennial"));
 
+        // Populate columns
         speciesIDColumn.setCellValueFactory(new PropertyValueFactory<Species, Integer>("speciesID"));
         scientificNameColumn.setCellValueFactory(new PropertyValueFactory<Species, String>("scientificName"));
         commonNameColumn.setCellValueFactory(new PropertyValueFactory<Species, String>("commonName"));
@@ -60,5 +61,10 @@ public class TableViewController implements Initializable {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+    }
+
+    public void viewGraphClicked(ActionEvent event) throws IOException
+    {
+        SceneChangeUtility.changeScene(event, "/Views/BarChartView.fxml", "Invasive Species Graph");
     }
 }

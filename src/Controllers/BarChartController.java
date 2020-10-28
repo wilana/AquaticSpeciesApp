@@ -9,6 +9,7 @@ import javafx.fxml.Initializable;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 import javafx.fxml.FXML;
@@ -33,21 +34,25 @@ public class BarChartController implements Initializable {
         @FXML
         private NumberAxis numberAxis;
 
-        private XYChart.Series<String, Integer> speciesSeries;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        speciesSeries = new XYChart.Series<>();
+
 
         // Label the bar chart
         barChart.setTitle("Invasive Species in the Great Lakes");
         originAxis.setLabel("");
         numberAxis.setLabel("");
 
-        // populate the bar chart
+        XYChart.Series series = new XYChart.Series();
+        series.setName("Plants");
+        try {
+            series.getData().addAll(DBUtility.getAllRegions());
+            barChart.getData().add(series);
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
 
-
-        barChart.getData().addAll(speciesSeries);
 
     }
 
